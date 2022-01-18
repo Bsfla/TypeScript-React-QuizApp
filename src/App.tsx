@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import QuestionCard from './components/QuestionCard';
 import { fetchQuizQestions } from './API';
 import { QuestionState, Difficulty } from './API';
+import { GlobalStyle, Wrapper } from './App.styles';
 
 export type AnswerObject = {
    question: string;
@@ -70,15 +71,17 @@ const App = () => {
    
   
    return (
-   <div className='App'>
-      <h1>REACT QUIZ</h1>
-      <button className='start' onClick={startTrivia}>
+   <>
+     <GlobalStyle />
+      <Wrapper>
+        <h1>REACT QUIZ</h1>
+        <button className='start' onClick={startTrivia}>
          Start
-      </button>
-      <p className='score'>Score: {score}</p>
-      {loading && (<p>Loading Questions ...</p>)}
-      {!loading && !gameOver && (
-      <QuestionCard 
+        </button>
+        <p className='score'>Score: {score}</p>
+        {loading && (<p>Loading Questions ...</p>)}
+        {!loading && !gameOver && (
+        <QuestionCard 
         questionNr={number + 1} 
         totalQuestions={TOTAL_QUESTIONS}
         question={questions[number].question}
@@ -86,14 +89,15 @@ const App = () => {
         userAnswer={userAnswers ? userAnswers[number] : undefined}
         callback={checkAnswer}
         />
-      )}
-      {!gameOver && !loading && userAnswers.length === number + 1 && number !== TOTAL_QUESTIONS - 1 ?
-      <button className='next' onClick={nextQuestion}>
+        )}
+       {!gameOver && !loading && userAnswers.length === number + 1 && number !== TOTAL_QUESTIONS - 1 ?
+       <button className='next' onClick={nextQuestion}>
            Next Question
-      </button> : null}
+       </button> : null}
       
-      
-   </div>
+   </Wrapper>
+   
+   </>
    )
 }
 
